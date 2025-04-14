@@ -1,0 +1,34 @@
+name: Build for macOS ARM64
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-mac-arm:
+    name: Build macOS ARM64 Binary
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: 1.20
+
+      - name: Build for macOS ARM64
+        run: |
+          echo "Building macOS ARM64 binary..."
+          GOOS=darwin GOARCH=arm64 go build -o bin/mailhog-mac-arm64 main.go
+          
+      - name: Upload Build Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: mailhog-mac-arm64
+          path: bin/mailhog-mac-arm64
