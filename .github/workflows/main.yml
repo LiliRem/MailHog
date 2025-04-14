@@ -2,11 +2,8 @@ name: Build for macOS ARM64
 
 on:
   push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
+    tags:
+      - 'v*'
 
 jobs:
   build-mac-arm:
